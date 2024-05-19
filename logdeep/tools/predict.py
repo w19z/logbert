@@ -136,9 +136,9 @@ class Predicter():
                                         sem=self.semantics,
                                         param=self.parameters)
                 data_loader = DataLoader(dataset,
-                                               batch_size=min(len(dataset), 128),
-                                               shuffle=True,
-                                               pin_memory=True)
+                                         batch_size=min(len(dataset), 128),
+                                         shuffle=True,
+                                         pin_memory=True)
                 # batch_size = len(dataset)
                 num_logkey_anomaly = 0
                 num_predicted_logkey = 0
@@ -182,9 +182,10 @@ class Predicter():
 
         # Test the model
         start_time = time.time()
+        print("Testing normal results\n")
         test_normal_results, normal_errors = self.unsupervised_helper(model, test_normal_loader, vocab, 'test_normal', scale=scale, min_len=self.min_len)
+        print("\nTesting normal results")
         test_abnormal_results, abnormal_errors = self.unsupervised_helper(model, test_abnormal_loader, vocab, 'test_abnormal', scale=scale, min_len=self.min_len)
-
         print("Saving test normal results", self.save_dir + "test_normal_results")
         with open(self.save_dir + "test_normal_results", "wb") as f:
             pickle.dump(test_normal_results, f)

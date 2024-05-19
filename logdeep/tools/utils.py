@@ -62,7 +62,6 @@ def plot_train_valid_loss(save_dir):
     plt.title("epoch vs train loss vs valid loss")
     plt.legend
     plt.savefig(save_dir+"train_valid_loss.png")
-    plt.show()
     print("plot done")
 
 
