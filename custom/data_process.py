@@ -34,7 +34,7 @@ if __name__ == "__main__":
     step_size = 2
     train_ratio = 0.4
 
-    df = pd.read_csv(f'{output_dir}{log_file}_structured.csv')
+    df = pd.read_csv(f'../preprocessing/{log_file}_structured.csv')
 
     # data preprocess
     df['Datetime'] = pd.to_datetime(df['Datetime'], format='%Y-%m-%d %H:%M:%S.%f')
@@ -42,7 +42,6 @@ if __name__ == "__main__":
     # for binary data
     #df["Label"] = df["Label"].apply(lambda x: int(x != "-"))
     
-    df["Label"] = df["Label1"]
     
     df['timestamp'] = df["Datetime"].values.astype(np.int64) // 10 ** 9
     df['deltaT'] = df['Datetime'].diff() / np.timedelta64(1, 's')
@@ -95,6 +94,8 @@ if __name__ == "__main__":
     # Test Abnormal #
     #################
 
+
+    # create separate abnormal datasets
     for i in [1, 2, 4]:
         df_abnormal = deeplog_df[deeplog_df["Label"] == i]
         deeplog_file_generator(os.path.join(output_dir,'test_abnormal_{}'.format(i)), df_abnormal, ["EventId"])
